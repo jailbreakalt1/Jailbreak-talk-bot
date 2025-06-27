@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jailbreak AI - Command Center</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Matrix Rain Background -->
+    <canvas id="matrixCanvas" class="matrix-canvas"></canvas>
+    
+    <!-- Glitch Effect Overlay -->
+    <div id="glitchOverlay" class="glitch-overlay"></div>
+    
+    <!-- Animated Background Circles -->
+    <div class="background-circles">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Top Time Display -->
+        <div class="time-display">
+            <div id="currentTime" class="time-text">00:00:00</div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Camera Feed -->
+                <div class="card camera-card">
+                    <div class="card-header">
+                        <span class="card-title">VISUAL</span>
+                        <span class="card-number">03</span>
+                    </div>
+                    <div class="camera-container">
+                        <video id="cameraVideo" class="camera-video" autoplay muted style="display: none;"></video>
+                        <div id="cameraPlaceholder" class="camera-placeholder">
+                            <div class="camera-icon">📷</div>
+                            <div class="camera-text">Camera Off</div>
+                            <div class="camera-hint">Say "turn on camera"</div>
+                        </div>
+                    </div>
+                    <button id="cameraToggle" class="camera-toggle">
+                        <span id="cameraIcon">📷</span>
+                    </button>
+                </div>
+
+                <!-- System Stats -->
+                <div class="card system-card">
+                    <div class="card-title">SYSTEM</div>
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <div class="stat-header">
+                                <span>CPU</span>
+                                <span id="cpuValue" class="stat-value-red">4%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="cpuProgress" class="progress-fill progress-red" style="width: 4%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-header">
+                                <span>GPU</span>
+                                <span id="gpuValue" class="stat-value">17%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="gpuProgress" class="progress-fill progress-cyan" style="width: 17%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-header">
+                                <span>Network</span>
+                                <span id="networkValue" class="stat-value">55 Mbps</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-header">
+                                <span>Processes</span>
+                                <span id="processValue" class="stat-value">3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Column -->
+            <div class="center-column">
+                <!-- Particle-based Jailbreak Title -->
+                <div class="title-container">
+                    <canvas id="particleCanvas" class="particle-canvas"></canvas>
+                </div>
+
+                <!-- Status indicator -->
+                <div id="statusText" class="status-text">Voice Assistant Active</div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- Uptime -->
+                <div class="card uptime-card">
+                    <div class="card-title">UPTIME</div>
+                    <div class="uptime-stats">
+                        <div class="uptime-row">
+                            <span class="stat-value">39%</span>
+                            <span class="stat-value">29%</span>
+                        </div>
+                        <div class="uptime-labels">
+                            <span>RAM</span>
+                            <span>RAM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather & Battery -->
+                <div class="card weather-card">
+                    <div class="card-title">WEATHER & BATTERY</div>
+                    <div class="weather-stats">
+                        <div class="weather-item">
+                            <span class="weather-icon">🌧️</span>
+                            <div class="weather-info">
+                                <div id="weatherText" class="weather-main">Rain, 18°</div>
+                                <div class="weather-sub">Plugged in</div>
+                            </div>
+                        </div>
+                        <div class="weather-item">
+                            <span id="batteryIcon" class="weather-icon">🔋</span>
+                            <div class="weather-info">
+                                <div id="batteryText" class="weather-main">85%</div>
+                                <div id="batteryStatus" class="weather-sub">Charging</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meta Information -->
+                <div class="card meta-card">
+                    <div class="card-title">META</div>
+                    <div class="meta-stats">
+                        <div class="meta-item">
+                            <span>Device</span>
+                            <span>DESKTOP-XYZ123</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>OS</span>
+                            <span>Windows 11</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>Storage</span>
+                            <span>256 GB / 512 GB</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>Microphone</span>
+                            <span id="micStatus" class="mic-status">Off</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>Internet</span>
+                            <span>Wi-Fi</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>Resolution</span>
+                            <span id="screenRes">1920 x 1080</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Section -->
+        <div class="bottom-section">
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-container">
+                    <input 
+                        type="text" 
+                        id="messageInput" 
+                        placeholder="Type your message or use voice..."
+                        class="message-input"
+                    >
+                    <button id="sendButton" class="send-button">
+                        <span>📤</span>
+                    </button>
+                </div>
+
+                <button id="micButton" class="mic-button">
+                    <span id="micIcon">🎤</span>
+                </button>
+
+                <button id="speakerButton" class="speaker-button">
+                    <span id="speakerIcon">🔊</span>
+                </button>
+            </div>
+
+            <!-- Bottom Taskbar -->
+            <div class="taskbar">
+                <div class="taskbar-left">
+                    <div class="taskbar-icon red">🌡️</div>
+                    <div class="taskbar-icon red">💾</div>
+                    <div class="taskbar-icon red">🧠</div>
+                    <div class="taskbar-icon cyan">📶</div>
+                    <div class="taskbar-icon cyan">📷</div>
+                    <div class="taskbar-icon red">🔋</div>
+                </div>
+
+                <div class="taskbar-right">
+                    <div class="taskbar-info">
+                        <span>📶</span>
+                        <span id="taskbarTime">4:26 PM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Response Display -->
+    <div id="responseDisplay" class="response-display" style="display: none;">
+        <div class="response-header">JAILBREAK RESPONSE:</div>
+        <div id="responseText" class="response-text"></div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <div class="loading-text">Processing...</div>
+    </div>
+
+    <!-- Hidden Audio Element -->
+    <audio id="audioPlayer" style="display: none;"></audio>
+    
+    <!-- Hidden Canvas for Image Capture -->
+    <canvas id="captureCanvas" style="display: none;"></canvas>
+
+    <!-- Scripts -->
+    <script src="js/effects.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
